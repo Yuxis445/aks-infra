@@ -10,18 +10,23 @@ variable "environment" {
   type = string
 }
 
-# variable "service_cidr" {
-#   type = string
-# }
-
 variable "vnet_id" {
-  
+  type = string
 }
 
 variable "pip_id" {
-  
+  type = string
 }
 
 variable "identity_id" {
-  
+  type = string
+}
+
+variable "min_count" {
+  type    = number
+  default = 1
+}
+variable "max_count" {
+  type    = number
+  default = 3
 }

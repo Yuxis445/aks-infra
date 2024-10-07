@@ -1,7 +1,7 @@
 resource "local_file" "kubeconfig" {
-  depends_on   = [azurerm_kubernetes_cluster.aks_cluster]
-  filename     = "kubeconfig"
-  content      = azurerm_kubernetes_cluster.aks_cluster.kube_config_raw
+  depends_on = [azurerm_kubernetes_cluster.aks_cluster]
+  filename   = "kubeconfig"
+  content    = azurerm_kubernetes_cluster.aks_cluster.kube_config_raw
 }
 
 output "kube_config_raw" {
@@ -13,7 +13,7 @@ output "client_certificate" {
 }
 
 output "client_key" {
-  value =  azurerm_kubernetes_cluster.aks_cluster.kube_config[0].client_key
+  value = azurerm_kubernetes_cluster.aks_cluster.kube_config[0].client_key
 }
 
 output "cluster_ca_certificate" {

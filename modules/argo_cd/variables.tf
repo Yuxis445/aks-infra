@@ -2,9 +2,7 @@ variable "enabled" {
   type = string
 }
 
-variable "kube_config" {
-  
-}
+variable "kube_config" {}
 
 variable "kubernetes_host" {}
 

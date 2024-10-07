@@ -9,7 +9,7 @@ terraform {
       version = ">= 2.32.0, < 3.0.0"
     }
     kubectl = {
-      source = "gavinbunney/kubectl"
+      source  = "gavinbunney/kubectl"
       version = "1.14.0"
     }
   }

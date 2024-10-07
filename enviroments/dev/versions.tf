@@ -17,7 +17,7 @@ terraform {
       version = ">= 2.32.0, < 3.0.0"
     }
     kubectl = {
-      source = "gavinbunney/kubectl"
+      source  = "gavinbunney/kubectl"
       version = "1.14.0"
     }
   }
@@ -40,5 +40,5 @@ provider "kubernetes" {
 }
 
 provider "kubectl" {
-  config_path =  local.kubeconfig_raw
+  config_path = local.kubeconfig_raw
 }

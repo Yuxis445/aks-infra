@@ -34,3 +34,5 @@ core.*
 # Ignore local environment settings
 .terraformrc
 terraform.rc
+
+kubeconfig

@@ -23,7 +23,7 @@ resource "helm_release" "argocd" {
 resource "kubectl_manifest" "app_project" {
   count = var.argocd_enabled ? 1 : 0
 
-  yaml_body = <<YAML
+  yaml_body  = <<YAML
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
@@ -71,7 +71,7 @@ YAML
 resource "kubectl_manifest" "apps_of_apps" {
   count = var.argocd_enabled ? 1 : 0
 
-  yaml_body = <<YAML
+  yaml_body  = <<YAML
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:

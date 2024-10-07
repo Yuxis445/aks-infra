@@ -1,0 +1,136 @@
+#==========================================
+# GLOBAL
+#==========================================
+global:
+  env: dev
+  helmDefault: false
+  valuesFile: values.yaml
+  spec:
+    project: main-project
+    destination:
+      server: https://kubernetes.default.svc
+      namespace: argocd
+    source:
+      repoURL:
+      targetRevision: HEAD
+
+
+
+# #==========================================
+# # PROJECT
+# #==========================================
+# project:
+#   name:  devops-project
+#   description: "DevOps Project"
+
+# #==========================================
+# # REPOSITORIES
+# #==========================================
+# repositories:
+#   infra:
+#     name: devops
+#     url: "git@github.com:Torch-Networks/Ecomm.git"
+#     sshPrivateKeySecret: ""
+
+#==========================================
+# APPLICATIONS
+#==========================================
+argocdApplications:
+  nginx:
+    name: ingress-nginx
+    repoURL: "https://kubernetes.github.io/ingress-nginx"
+    targetRevision: 4.8.0
+    chart: ingress-nginx
+    namespace: "ingress-nginx"
+    disableAutomated: false
+    disable: false
+    hasPath: false
+    hasChart: true
+    helm: true
+    hasNameSpace: true
+    hasOpcinal: true
+    valuesHelm: |
+      controller:
+        service:
+          externalTrafficPolicy: "Local"
+        metrics:
+          enabled: true
+        podAnnotations:
+          prometheus.io/port: "10254"
+          prometheus.io/scrape: "true"
+  prometheus:
+    name: prometheus
+    repoURL: "https://prometheus-community.github.io/helm-charts"
+    targetRevision: 23.1.0
+    chart: "prometheus"
+    namespace: "prometheus-monitoring"
+    disableAutomated: false
+    disable: false
+    hasPath: false
+    hasChart: true
+    helm: true
+    hasOpcinal: true
+    hasNameSpace: true
+    valuesHelm: |
+      server:
+        resources:
+           limits:
+             cpu: 1
+             memory: 1Gi
+           requests:
+             cpu: 500m
+             memory: 512Mi
+      extraScrapeConfigs: |
+        - job_name: 'argocd'
+          metrics_path: /metrics
+          static_configs:
+            - targets:
+              - argocd-release-application-controller-metrics.argocd.svc.cluster.local:8082
+          scrape_interval: 5s
+          scheme: "http"
+
+  grafana:
+    name: grafana
+    repoURL: "https://grafana.github.io/helm-charts"
+    targetRevision: 6.60.1
+    chart: "grafana"
+    namespace: "grafana-monitoring"
+    disableAutomated: false
+    disable: false
+    hasPath: false
+    hasChart: true
+    helm: true
+    hasNameSpace: true
+    hasOpcinal: true
+    valuesHelm: |
+      # resources:
+      #   limits:
+      #     cpu: 1
+      #     memory: 1Gi
+      #   requests:
+      #     cpu: 500m
+      #     memory: 512Mi
+      datasources:
+        datasources.yaml:
+          apiVersion: 1
+          datasources:
+          - name: Prometheus
+            type: prometheus
+            url: http://prometheus-dev-server.prometheus-monitoring.svc.cluster.local
+      dashboardProviders:
+        dashboardproviders.yaml:
+          apiVersion: 1
+          providers:
+          - name: 'default'
+            orgId: 1
+            folder: ''
+            type: file
+            disableDeletion: false
+            editable: true
+            options:
+              path: /var/lib/grafana/dashboards/default
+      dashboards:
+        default:
+          argocd:
+            gnetId: 14584
+            datasource: Prometheus

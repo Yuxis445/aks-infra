@@ -45,3 +45,12 @@ module "argo" {
   cluster_ca_certificate = module.aks.cluster_ca_certificate
   kubernetes_host = module.aks.kubernetes_host
 }
+
+module "postgresql" {
+  source              = "../../modules/postgresql"
+  name                = var.db_name
+  resource_group_name = azurerm_resource_group.my-rg.name
+  location            = azurerm_resource_group.my-rg.location
+  admin_username      = var.db_admin_username
+  admin_password      = var.db_admin_password
+}

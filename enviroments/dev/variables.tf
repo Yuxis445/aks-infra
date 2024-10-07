@@ -23,3 +23,15 @@ variable "kube_config_path" {
   default = ""
   description = "Path to the kubeconfig file"
 }
+
+variable "db_name" {
+  default = "db-dev"
+}
+
+variable "db_admin_username" {
+  default = "dbadmin"
+}
+
+variable "db_admin_password" {
+  default = "YourStrong!Passw0rd" # Ideally, use a secret management solution
+}

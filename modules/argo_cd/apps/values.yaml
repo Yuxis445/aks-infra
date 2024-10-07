@@ -23,15 +23,6 @@ global:
 #   name:  devops-project
 #   description: "DevOps Project"
 
-# #==========================================
-# # REPOSITORIES
-# #==========================================
-# repositories:
-#   infra:
-#     name: devops
-#     url: "git@github.com:Torch-Networks/Ecomm.git"
-#     sshPrivateKeySecret: ""
-
 #==========================================
 # APPLICATIONS
 #==========================================
